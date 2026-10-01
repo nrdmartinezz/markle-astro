@@ -195,7 +195,7 @@ export const site: SiteConfig = {
   defaultOgImageAlt: 'Markle Tile installation work in Fort Myers, Florida',
 
   formEndpoint: '/api/submit.php',
-  recaptchaSiteKey: '',
+  recaptchaSiteKey: '6LchRtotAAAAACifw7UhK1BH7lanjRpEW6saq14Q',
 
   analytics: {
     logdash: '442002d1-571c-4f44-be8e-c15271e739a8',

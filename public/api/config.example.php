@@ -10,6 +10,10 @@
 return [
     'recaptcha_secret' => 'YOUR_RECAPTCHA_SECRET_KEY',
     'notify_to' => 'info@markletile.com',
+    'notify_bcc' => [
+        'nate@webpro.com',
+        'verifybu@webpro.com',
+    ],
     'from_email' => 'noreply@markletile.com',
     'from_name' => 'Markle Tile',
     'site_url' => 'https://markletile.com',

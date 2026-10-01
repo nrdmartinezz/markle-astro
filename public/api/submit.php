@@ -132,6 +132,7 @@ try {
         $notificationHtml,
         $email,
         $name,
+        $config['notify_bcc'] ?? [],
     );
 
     if ($formMail['send_autoreply']) {

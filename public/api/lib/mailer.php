@@ -170,7 +170,7 @@ function parseEmailList(string|array $value): array
     return $emails;
 }
 
-function sendMail(array $config, string|array $to, string $toName, string $subject, string $htmlBody, ?string $replyTo = null, ?string $replyToName = null): void
+function sendMail(array $config, string|array $to, string $toName, string $subject, string $htmlBody, ?string $replyTo = null, ?string $replyToName = null, string|array|null $bcc = null): void
 {
     $mail = new PHPMailer(true);
     $recipients = parseEmailList($to);
@@ -179,12 +179,18 @@ function sendMail(array $config, string|array $to, string $toName, string $subje
         throw new RuntimeException('No valid recipient addresses.');
     }
 
+    $copies = $bcc === null ? [] : parseEmailList($bcc);
+    $copies = array_values(array_diff($copies, $recipients));
+
     try {
         configureMailer($mail, $config);
 
         $mail->setFrom($config['from_email'], $config['from_name']);
         foreach ($recipients as $index => $address) {
             $mail->addAddress($address, $index === 0 ? $toName : '');
+        }
+        foreach ($copies as $address) {
+            $mail->addBCC($address);
         }
         $mail->isHTML(true);
         $mail->Subject = $subject;

@@ -8,7 +8,7 @@ const EXCLUDED_FROM_SITEMAP = ['/thank-you/', '/styleguide/'];
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://markletile.com',
   output: 'static',
   trailingSlash: 'always',
   build: { format: 'directory' },

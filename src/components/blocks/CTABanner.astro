@@ -1,12 +1,16 @@
 ---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
-import Heading from '../ui/Heading.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Button from '../ui/Button.astro';
 import type { BlockProps, BlockAction } from './types';
 
 interface Props extends BlockProps {
   actions: BlockAction[];
+  image?: ImageMetadata;
+  imageAlt?: string;
 }
 
 const {
@@ -16,9 +20,13 @@ const {
   width = 'narrow',
   eyebrow,
   title,
+  titleAccent,
+  accentBreak,
   body,
   titleLevel = 2,
   actions,
+  image,
+  imageAlt = '',
 } = Astro.props;
 
 // On a coloured band the default primary button disappears into the surface.
@@ -28,7 +36,17 @@ const defaultVariant = background === 'brand' || background === 'inverse' ? 'inv
 <Section background={background} spacing={spacing}>
   <Container width={width} align={align} gap="md">
     {eyebrow && <p class="text-sm font-semibold tracking-wide uppercase opacity-80">{eyebrow}</p>}
-    {title && <Heading level={titleLevel}>{title}</Heading>}
+    {
+      title && (
+        <AccentHeading
+          level={titleLevel}
+          title={title}
+          titleAccent={titleAccent}
+          accentBreak={accentBreak}
+          class="text-inherit"
+        />
+      )
+    }
     {body && <p class="max-w-reading text-lg opacity-90">{body}</p>}
 
     <div class:list={['flex flex-wrap gap-3', align === 'center' && 'justify-center']}>
@@ -40,5 +58,17 @@ const defaultVariant = background === 'brand' || background === 'inverse' ? 'inv
         ))
       }
     </div>
+
+    {
+      image && (
+        <Image
+          src={image}
+          alt={imageAlt}
+          widths={[640, 960, 1400]}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          class="mt-2 w-full rounded-lg object-cover"
+        />
+      )
+    }
   </Container>
 </Section>

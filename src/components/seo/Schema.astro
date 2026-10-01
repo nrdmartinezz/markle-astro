@@ -22,35 +22,63 @@ const { breadcrumbs, faqs, service } = Astro.props;
 const businessId = `${site.url}/#business`;
 const abs = (path: string) => new URL(path, site.url).href;
 
-const graph: Record<string, unknown>[] = [
-  {
-    '@type': site.business.schemaType,
-    '@id': businessId,
-    name: site.name,
-    legalName: site.legalName,
-    description: site.description,
-    url: site.url,
-    telephone: site.business.phone,
-    email: site.business.email,
-    priceRange: site.business.priceRange,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: site.business.address.street,
-      addressLocality: site.business.address.locality,
-      addressRegion: site.business.address.region,
-      postalCode: site.business.address.postalCode,
-      addressCountry: site.business.address.country,
+const areas = (site.areaServed ?? []).map((area) => ({
+  '@type': area.type,
+  name: area.name,
+}));
+
+const business: Record<string, unknown> = {
+  '@type': site.business.schemaType,
+  '@id': businessId,
+  name: site.name,
+  legalName: site.legalName,
+  description: site.description,
+  url: site.url,
+  telephone: site.business.phoneHref,
+  image: abs(site.defaultOgImage),
+  logo: abs('/logo.webp'),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.business.address.street,
+    addressLocality: site.business.address.locality,
+    addressRegion: site.business.address.region,
+    postalCode: site.business.address.postalCode,
+    addressCountry: site.business.address.country,
+  },
+  ...(site.business.geo && {
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: site.business.geo.latitude,
+      longitude: site.business.geo.longitude,
     },
-    ...(site.business.geo && {
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: site.business.geo.latitude,
-        longitude: site.business.geo.longitude,
+  }),
+  openingHours: site.business.hours,
+  ...(areas.length > 0 && { areaServed: areas }),
+  ...(site.offers &&
+    site.offers.length > 0 && {
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Tile and renovation services',
+        itemListElement: site.offers.map((offer) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: offer.name,
+            description: offer.description,
+          },
+        })),
       },
     }),
-    openingHours: site.business.hours,
-    sameAs: Object.values(site.social).filter(Boolean),
-  },
+};
+
+if (site.business.email) business.email = site.business.email;
+if (site.business.priceRange) business.priceRange = site.business.priceRange;
+
+const sameAs = Object.values(site.social).filter(Boolean);
+if (sameAs.length) business.sameAs = sameAs;
+
+const graph: Record<string, unknown>[] = [
+  business,
   {
     '@type': 'WebSite',
     '@id': `${site.url}/#website`,
@@ -90,7 +118,7 @@ if (service) {
     name: service.name,
     description: service.description,
     provider: { '@id': businessId },
-    areaServed: site.business.address.region,
+    ...(areas.length > 0 && { areaServed: areas }),
   });
 }
 

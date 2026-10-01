@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OverlayHero from '../components/blocks/OverlayHero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import BlockHeader from '../components/blocks/BlockHeader.astro';
+import Button from '../components/ui/Button.astro';
+import { Image } from 'astro:assets';
+import MediaCards from '../components/blocks/MediaCards.astro';
+import FeatureSplit from '../components/blocks/FeatureSplit.astro';
+import FAQ from '../components/blocks/FAQ.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import { site } from '../config/site';
+import { descriptions, faqs } from '../data/faqs';
+import hero from '../assets/markle/hero-page.webp';
+import introPhoto from '../assets/markle/tile-work.webp';
+import tileInstall from '../assets/markle/tile-install.webp';
+import kitchen from '../assets/markle/kitchen-remodel.webp';
+import bathroom from '../assets/markle/bathroom-remodel.webp';
+
+const phone = {
+  label: `Call Us: ${site.business.phone}`,
+  href: `tel:${site.business.phoneHref}`,
+  variant: 'outline-inverse' as const,
+};
+
+const estimate = { label: 'Request a Free Estimate', href: '/contact-us/' };
+---
+
+<BaseLayout
+  title="Our Services – Markle Tile"
+  titleExact
+  description={descriptions.services}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Our Services', href: '/our-services/' },
+  ]}
+  faqs={faqs}
+  service={{ name: 'Tile Installation & Renovation', description: descriptions.services }}
+>
+  <OverlayHero
+    size="short"
+    align="start"
+    image={hero}
+    imageAlt="Installer combing thinset and setting a wood-look floor tile"
+    eyebrow="Our Services"
+    title="Tile Installation & Repair"
+  />
+
+  <Section>
+    <Container gap="md">
+      <BlockHeader
+        eyebrow="Expert Craftsmanship"
+        title="Precision Tile Work, Built to Last"
+        titleAccent="Built to Last"
+        accentBreak
+        body="From sleek modern designs to timeless classics, our tile installation services cover everything from ceramic and porcelain to natural stone. Whether you need a new backsplash, a stylish accent wall, or durable flooring, we ensure precision and quality in every tile placement."
+      />
+      <p class="text-ink-muted max-w-reading">
+        If your existing tiles are cracked, chipped, or have worn grout, our tile repair services
+        can restore their original beauty — extending their lifespan and maintaining the integrity
+        of your space.
+      </p>
+      <Button href="/contact-us/" size="lg">{estimate.label}</Button>
+      <Image
+        src={introPhoto}
+        alt="Kitchen remodel underway with new cabinetry and windows"
+        widths={[640, 960, 1400]}
+        sizes="(max-width: 768px) 100vw, 70vw"
+        class="mx-auto mt-4 w-full max-w-3xl rounded-xl object-cover"
+      />
+    </Container>
+  </Section>
+
+  <MediaCards
+    background="muted"
+    align="center"
+    columns={2}
+    title="Our Tile & Renovation Services"
+    titleAccent="Tile & Renovation"
+    body="From small repairs to complete transformations — we handle every detail with care."
+    variant="solid"
+    items={[
+      {
+        tone: 'copper',
+        icon: 'lucide:layout-grid',
+        title: 'Tile Installation',
+        body: 'Ceramic, porcelain, and natural stone tile installation for floors, walls, backsplashes, and more.',
+        href: '#tile-installation',
+      },
+      {
+        tone: 'blue',
+        icon: 'lucide:cooking-pot',
+        title: 'Kitchen Remodels',
+        body: 'Transform your kitchen into a chef-inspired masterpiece — from simple updates to complete overhauls.',
+        href: '#kitchen-reno',
+      },
+      {
+        tone: 'sage',
+        icon: 'lucide:bath',
+        title: 'Bathroom Remodels',
+        body: 'Specialized bathroom renovations of any size — designed around your vision and lifestyle.',
+        href: '#bathroom-reno',
+      },
+      {
+        tone: 'copper',
+        icon: 'lucide:door-open',
+        title: 'Windows & Doors',
+        body: 'Professional window and door replacement for improved energy efficiency and curb appeal.',
+      },
+      {
+        tone: 'blue',
+        icon: 'lucide:ruler',
+        title: 'Trim & Molding',
+        body: 'Baseboard, crown molding, and trim installation for a polished, finished look throughout your home.',
+      },
+      {
+        tone: 'sage',
+        icon: 'lucide:brick-wall',
+        title: 'Ledgestone & Brick Veneer',
+        body: 'Exterior stacked ledgestone and brick veneer installation for stunning architectural character.',
+      },
+    ]}
+  />
+
+  <FeatureSplit
+    id="tile-installation"
+    eyebrow="Our Specialty"
+    title="Certified Large Panel Tile Installation"
+    titleAccent="Tile Installation"
+    image={tileInstall}
+    imageAlt="Installer setting a large-format floor tile into combed mortar"
+    body="Large-format tiles — from 24×24 to 48×48 and beyond — are among the most sought-after design choices in modern Fort Myers homes. They create seamless, expansive surfaces that make spaces feel larger and more luxurious. But installing them correctly requires specialized training, tools, and techniques. Markle Tile & Renovation is a certified large panel tile installation specialist. We use precision leveling systems, large-format mortar, and advanced substrate preparation to ensure every oversized tile is perfectly flat, properly bonded, and built to last in Southwest Florida's climate. If you want large tiles done right, we're the team to call."
+    actions={[estimate]}
+  />
+
+  <FeatureSplit
+    id="kitchen-reno"
+    reverse
+    eyebrow="Kitchen Transformations"
+    title="Kitchen Remodels That Add Real Value"
+    titleAccent="Real Value"
+    image={kitchen}
+    imageAlt="Kitchen remodel in progress with new cabinets and a center island"
+    body="The kitchen is the heart of the home — and a well-executed kitchen remodel is one of the highest-ROI investments a Fort Myers homeowner can make. Whether you're looking to update a dated backsplash, replace worn floor tile, or completely gut and rebuild your kitchen from the ground up, Markle Tile & Renovation has the expertise to deliver stunning results. We work with you from the initial design consultation through material selection and final installation. Our team handles every detail — from demolition and substrate prep to precision tile layout and grouting — so you get a kitchen that's as functional as it is beautiful, serving homeowners across Fort Myers, Cape Coral, Bonita Springs, and all of Southwest Florida."
+    actions={[estimate]}
+  />
+
+  <FeatureSplit
+    id="bathroom-reno"
+    eyebrow="Bathroom Renovations"
+    title="Built for the Florida Lifestyle"
+    titleAccent="Florida Lifestyle"
+    image={bathroom}
+    imageAlt="Tile setter installing wall tile in a bathroom remodel"
+    body="Southwest Florida's warm, humid climate makes proper waterproofing and moisture-resistant materials essential in any bathroom renovation. At Markle Tile & Renovation, we don't just install beautiful tile — we build bathrooms that are engineered to perform in the SWFL environment for decades to come. From walk-in tile showers with frameless glass to freestanding soaking tubs, custom vanity surrounds, and heated floor tile systems, we bring spa-level luxury to homes across Fort Myers, Cape Coral, Estero, and Naples. We specialize in bathroom remodels of any size — from a quick refresh to a full master bath transformation — and we work within your budget to deliver maximum impact."
+    actions={[estimate]}
+  />
+
+  <FAQ
+    background="muted"
+    align="center"
+    eyebrow="Common Questions"
+    title="Service FAQs"
+    titleAccent="FAQs"
+    body="Have questions before you call? We've answered the most common ones below. For anything else, don't hesitate to reach out — we're always happy to talk through your project."
+    items={faqs}
+    schema={false}
+  />
+
+  <CTABanner
+    background="accent"
+    title="Ready To Start Your Next Project?"
+    body="Get a free quote or schedule a consultation with our team. We'll discuss your vision and deliver honest, expert guidance — no pressure, no obligation."
+    actions={[{ label: 'Request a Quote', href: '/contact-us/' }, phone]}
+  />
+</BaseLayout>

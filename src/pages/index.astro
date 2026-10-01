@@ -1,127 +1,137 @@
 ---
-/**
- * Demo home page, assembled entirely from blocks so it doubles as a working
- * example and a build smoke test. `npm run setup` clears this per project.
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/blocks/Hero.astro';
-import ServicesGrid from '../components/blocks/ServicesGrid.astro';
-import ProcessSteps from '../components/blocks/ProcessSteps.astro';
+import OverlayHero from '../components/blocks/OverlayHero.astro';
+import MediaCards from '../components/blocks/MediaCards.astro';
+import FeatureSplit from '../components/blocks/FeatureSplit.astro';
 import Stats from '../components/blocks/Stats.astro';
-import Testimonials from '../components/blocks/Testimonials.astro';
-import FAQ from '../components/blocks/FAQ.astro';
 import CTABanner from '../components/blocks/CTABanner.astro';
 import { site } from '../config/site';
+import heroHome from '../assets/markle/hero-home.webp';
+import tileWorker from '../assets/markle/hero-page.webp';
+import kitchenUnderway from '../assets/markle/tile-work.webp';
+import blueTile from '../assets/markle/kitchen-home.webp';
+import ctaPhoto from '../assets/markle/cta-project.webp';
+import aerial from '../assets/markle/service-area.webp';
 
-const faqs = [
-  {
-    question: 'Do you offer emergency callouts?',
-    answer: 'Yes — we cover emergencies around the clock, including weekends and holidays.',
-  },
-  {
-    question: 'Are you licensed and insured?',
-    answer: 'Fully licensed and insured. We can supply certificates on request before work starts.',
-  },
-  {
-    question: 'How quickly can you get here?',
-    answer: 'Typically within two hours across the metro area, and same-day everywhere else.',
-  },
-];
+const phone = {
+  label: `Call Us: ${site.business.phone}`,
+  href: `tel:${site.business.phoneHref}`,
+  variant: 'outline-inverse' as const,
+};
 ---
 
-<BaseLayout faqs={faqs}>
-  <Hero
-    eyebrow={`${site.business.address.locality}, ${site.business.address.region}`}
-    title={site.tagline}
-    body={site.description}
-    bullets={[
-      'Licensed and insured',
-      'Upfront pricing, no surprises',
-      'Work guaranteed for 12 months',
-    ]}
+<BaseLayout
+  title="Markle Tile – General Contractor near Fort Myers, FL"
+  titleExact
+  description={site.description}
+>
+  <OverlayHero
+    image={heroHome}
+    imageAlt="Stacked marble and stone tile slabs"
+    title="Tile and renovation done right"
+    body="We build spaces that last. From precise tile work to complete home transformations, Markle Tile handles every detail with the care it deserves."
     actions={[
-      { label: 'Request a quote', href: '/contact/' },
-      { label: site.business.phone, href: `tel:${site.business.phoneHref}`, variant: 'secondary' },
+      { label: 'Get Started', href: '/contact-us/' },
+      { label: 'View Services', href: '/our-services/', variant: 'outline-inverse' },
     ]}
   />
 
-  <ServicesGrid
-    eyebrow="Services"
-    title="What we do"
-    body="Straightforward work across residential and commercial properties."
+  <MediaCards
+    align="center"
+    columns={2}
+    eyebrow="What we do"
+    title="Craftsmanship in Every Project"
+    titleAccent="Every Project"
+    body="We build spaces that last. From precise tile work to complete home transformations, Markle Tile handles every detail with the care it deserves."
     items={[
       {
-        icon: 'lucide:wrench',
-        title: 'Repairs & Maintenance',
-        body: 'Same-week appointments for the problems that cannot wait.',
-        href: '/services/repairs/',
+        eyebrow: 'Tile',
+        title: 'Tile installation',
+        body: 'From elegant bathroom floors to stunning kitchen backsplashes, we provide expert tile installation that combines precision craftsmanship with durable, long-lasting results.',
+        href: '/our-services/',
+        image: tileWorker,
+        imageAlt: 'Installer setting floor tile with a trowel in Fort Myers',
       },
       {
-        icon: 'lucide:hammer',
-        title: 'Installations',
-        body: 'New systems specified, fitted, and tested to code.',
-        href: '/services/installations/',
-      },
-      {
-        icon: 'lucide:clipboard-check',
-        title: 'Service Contracts',
-        body: 'Scheduled upkeep with priority response when something goes wrong.',
-        href: '/services/contracts/',
+        eyebrow: 'Exteriors',
+        title: 'Windows, doors, and trim',
+        body: "Our window and door trim services give your home a polished, finished look — whether you're updating outdated molding or adding trim for the first time.",
+        href: '/our-services/',
+        image: kitchenUnderway,
+        imageAlt: 'Kitchen remodel in progress with new cabinets and windows',
       },
     ]}
   />
 
-  <ProcessSteps
-    background="muted"
-    eyebrow="Process"
-    title="How it works"
-    items={[
-      { title: 'Get in touch', body: 'Call or send a message describing the problem.' },
-      { title: 'We assess', body: 'A quick look in person, or from photos where that works.' },
-      { title: 'Fixed quote', body: 'Agreed before any work begins. No surprises later.' },
-      { title: 'Work completed', body: 'Guaranteed for twelve months from the day we finish.' },
-    ]}
+  <FeatureSplit
+    eyebrow="Remodeling"
+    title="Kitchen and bathroom transformations"
+    titleAccent="transformations"
+    image={blueTile}
+    imageAlt="Glazed blue tile installed in a running bond pattern"
+    body="With years of experience in kitchen and bathroom renovations, we bring craftsmanship and attention to detail to every project, whether it's a simple refresh or a complete gut renovation. We work closely with homeowners to design spaces that are both beautiful and functional, built to last."
+    actions={[{ label: 'Learn More About Remodels', href: '/our-services/' }]}
   />
 
   <Stats
-    title="By the numbers"
+    background="muted"
+    align="center"
+    labelFirst
+    title="Built on Quality, Measured in Results"
+    titleAccent="Measured in Results"
+    body="Markle Tile has completed hundreds of residential and commercial projects across Fort Myers. We measure success by the lasting satisfaction of our clients and the durability of every installation."
     items={[
-      { value: '18 yrs', label: 'Serving the region' },
-      { value: '4.9/5', label: 'Average review score' },
-      { value: '2 hrs', label: 'Typical callout response' },
+      { value: '15+', label: 'Year in business', detail: 'Serving Fort Myers with dedication' },
+      { value: '500+', label: 'Projects completed', detail: 'From kitchens to commercial spaces' },
+      { value: '300+', label: 'Clients served', detail: 'Residential and commercial alike' },
     ]}
   />
-
-  <Testimonials
-    eyebrow="Reviews"
-    title="What clients say"
-    items={[
-      {
-        quote: 'Turned up when they said they would and fixed it on the first visit.',
-        name: 'Dana R.',
-        role: 'Homeowner',
-        rating: 5,
-      },
-      {
-        quote: 'Clear pricing, no upselling, and they cleaned up after themselves.',
-        name: 'Mark T.',
-        role: 'Office manager',
-        rating: 5,
-      },
-      {
-        quote: 'They handle all four of our sites now. Easiest contractor we work with.',
-        name: 'Priya S.',
-        role: 'Facilities lead',
-        rating: 5,
-      },
-    ]}
-  />
-
-  <FAQ eyebrow="FAQ" title="Common questions" items={faqs} schema={false} />
 
   <CTABanner
-    title="Ready to get started?"
-    body="Tell us what you need and we will come back to you the same day."
-    actions={[{ label: 'Request a quote', href: '/contact/' }]}
+    background="accent"
+    width="page"
+    title="Ready to start your project"
+    body="Get a quote or schedule a consultation with our team. We'll discuss your vision and deliver honest guidance."
+    actions={[{ label: 'Request Quote', href: '/contact-us/' }, phone]}
+    image={ctaPhoto}
+    imageAlt="Finished tile and renovation project by Markle Tile"
+  />
+
+  <MediaCards
+    align="center"
+    columns={3}
+    eyebrow="Servicing Fort Myers, FL, and surrounding areas"
+    title="Where We Work"
+    body="We build spaces that last. From precise tile work to complete home transformations, Markle Tile handles every detail with the care it deserves."
+    featureImage={aerial}
+    featureImageAlt="Aerial view of Fort Myers, Florida"
+    items={[
+      {
+        eyebrow: 'Fort Myers',
+        title: 'Main office',
+        body: '11000 Metro Parkway, Unit 24, Fort Myers',
+        href: site.mapsUrl,
+        linkLabel: 'Get directions',
+      },
+      {
+        eyebrow: 'Service Radius',
+        title: 'Southwest Florida',
+        body: 'We serve Fort Myers, Cape Coral, and surrounding areas',
+      },
+      {
+        eyebrow: 'Available',
+        title: 'Monday through Friday',
+        body: '9am to 5pm local time',
+        href: phone.href,
+        linkLabel: 'Call now',
+      },
+    ]}
+  />
+
+  <CTABanner
+    background="accent"
+    title="Ready To Start Your Next Project?"
+    body="Get a free quote or schedule a consultation with our team. We'll discuss your vision and deliver honest, expert guidance — no pressure, no obligation."
+    actions={[{ label: 'Request a Quote', href: '/contact-us/' }, phone]}
   />
 </BaseLayout>

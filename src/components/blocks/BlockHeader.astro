@@ -1,25 +1,42 @@
 ---
 /** Shared heading cluster so every block introduces itself the same way. */
-import Heading from '../ui/Heading.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
 
 interface Props {
   eyebrow?: string;
   title?: string;
+  titleAccent?: string;
+  accentBreak?: boolean;
   body?: string;
   level?: 2 | 3;
   centered?: boolean;
 }
 
-const { eyebrow, title, body, level = 2, centered = false } = Astro.props;
+const {
+  eyebrow,
+  title,
+  titleAccent,
+  accentBreak = false,
+  body,
+  level = 2,
+  centered = false,
+} = Astro.props;
 ---
 
 {
   (eyebrow || title || body) && (
     <div class:list={['flex w-full flex-col gap-3', centered && 'items-center text-center']}>
       {eyebrow && (
-        <p class="text-ink-brand text-sm font-semibold tracking-wide uppercase">{eyebrow}</p>
+        <p class="text-accent-600 text-sm font-semibold tracking-wide uppercase">{eyebrow}</p>
       )}
-      {title && <Heading level={level}>{title}</Heading>}
+      {title && (
+        <AccentHeading
+          level={level}
+          title={title}
+          titleAccent={titleAccent}
+          accentBreak={accentBreak}
+        />
+      )}
       {body && <p class="max-w-reading text-ink-muted text-lg">{body}</p>}
     </div>
   )

@@ -7,10 +7,14 @@ import type { BlockProps } from './types';
 export interface Stat {
   value: string;
   label: string;
+  /** Short line under the figure. */
+  detail?: string;
 }
 
 interface Props extends BlockProps {
   items: Stat[];
+  /** Caption sits above the figure, matching stat bands that label first. */
+  labelFirst?: boolean;
 }
 
 const {
@@ -20,9 +24,12 @@ const {
   width = 'page',
   eyebrow,
   title,
+  titleAccent,
+  accentBreak,
   body,
   titleLevel = 2,
   items,
+  labelFirst = false,
 } = Astro.props;
 
 const columnClass = items.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-3';
@@ -33,6 +40,8 @@ const columnClass = items.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:g
     <BlockHeader
       eyebrow={eyebrow}
       title={title}
+      titleAccent={titleAccent}
+      accentBreak={accentBreak}
       body={body}
       level={titleLevel}
       centered={align === 'center'}
@@ -43,10 +52,16 @@ const columnClass = items.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:g
         items.map((stat) => (
           <div class="flex flex-col gap-1">
             {/* Value reads first visually; DOM order keeps dt before dd. */}
-            <dt class="text-ink-muted order-2">{stat.label}</dt>
-            <dd class="text-ink-brand order-1 text-4xl font-semibold tracking-tight">
+            <dt class:list={['text-ink-muted', !labelFirst && 'order-2']}>{stat.label}</dt>
+            <dd
+              class:list={[
+                'text-ink-brand text-4xl font-semibold tracking-tight',
+                !labelFirst && 'order-1',
+              ]}
+            >
               {stat.value}
             </dd>
+            {stat.detail && <p class="text-ink-muted order-3 text-sm">{stat.detail}</p>}
           </div>
         ))
       }

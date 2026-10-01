@@ -55,8 +55,25 @@ export interface SiteConfig {
     geo?: { latitude: number; longitude: number };
     /** schema.org openingHours strings, e.g. 'Mo-Fr 08:00-17:00'. */
     hours: string[];
+    /** Human-readable hours for the footer and contact sidebar. */
+    hoursLabel?: string;
     priceRange?: string;
   };
+
+  /** Optional line above the header. */
+  announcement?: string;
+
+  /** Google Maps place URL for the public location. */
+  mapsUrl?: string;
+
+  /** Designer or agency credit in the footer. */
+  credit?: { label: string; href: string };
+
+  /** Places named in copy, used for areaServed schema. */
+  areaServed?: { type: 'City' | 'AdministrativeArea'; name: string }[];
+
+  /** Services offered, used for hasOfferCatalog schema. */
+  offers?: { name: string; description: string }[];
 
   social: {
     facebook?: string;
@@ -69,6 +86,8 @@ export interface SiteConfig {
 
   /** Absolute or site-relative path to the fallback Open Graph image. */
   defaultOgImage: string;
+  /** Alt text for the default Open Graph image. */
+  defaultOgImageAlt?: string;
 
   /** Relative path to the PHP form handler. Blank disables all forms. */
   formEndpoint: string;
@@ -92,44 +111,89 @@ export interface SiteConfig {
 }
 
 export const site: SiteConfig = {
-  url: 'https://example.com',
-  name: 'Demo Business',
-  legalName: 'Demo Business LLC',
-  tagline: 'Straightforward work, done right the first time.',
+  url: 'https://markletile.com',
+  name: 'Markle Tile',
+  legalName: 'Markle Tile & Renovation',
+  tagline: 'Tile and renovation done right',
   description:
-    'Demo Business is a placeholder used by the starter template. Replace this copy during project setup.',
+    'Licensed Fort Myers general contractor for tile installation, kitchen and bathroom remodels, windows, doors, and trim. Free estimates. Call (239) 490-3631.',
   locale: 'en-US',
 
+  announcement: 'Servicing the Fort Myers area for over 20 years',
+
+  mapsUrl: 'https://www.google.com/maps/place/Markle+renovations/@26.5813972,-81.8538347,17z',
+
+  credit: {
+    label: 'Site Designed By WEB PRO INT',
+    href: 'https://www.webpro.com/',
+  },
+
+  areaServed: [
+    { type: 'City', name: 'Fort Myers' },
+    { type: 'City', name: 'Cape Coral' },
+    { type: 'City', name: 'Bonita Springs' },
+    { type: 'City', name: 'Estero' },
+    { type: 'City', name: 'Naples' },
+    { type: 'City', name: 'Lehigh Acres' },
+    { type: 'AdministrativeArea', name: 'Lee County' },
+  ],
+
+  offers: [
+    {
+      name: 'Tile Installation',
+      description:
+        'Ceramic, porcelain, and natural stone tile installation for floors, walls, backsplashes, and more.',
+    },
+    {
+      name: 'Kitchen Remodels',
+      description:
+        'Kitchen updates and full overhauls, from backsplashes and floor tile to complete rebuilds.',
+    },
+    {
+      name: 'Bathroom Remodels',
+      description: 'Bathroom renovations of any size, built for Southwest Florida’s climate.',
+    },
+    {
+      name: 'Windows & Doors',
+      description: 'Window and door replacement for energy efficiency and curb appeal.',
+    },
+    {
+      name: 'Trim & Molding',
+      description: 'Baseboard, crown molding, and trim installation for a finished look.',
+    },
+    {
+      name: 'Ledgestone & Brick Veneer',
+      description: 'Exterior stacked ledgestone and brick veneer installation.',
+    },
+  ],
+
   business: {
-    schemaType: 'LocalBusiness',
-    phone: '(555) 010-4477',
-    phoneHref: '+15550104477',
-    email: 'hello@example.com',
+    schemaType: 'GeneralContractor',
+    phone: '(239) 490-3631',
+    phoneHref: '+12394903631',
+    email: '',
     address: {
-      street: '1200 Market Street, Suite 400',
-      locality: 'Columbus',
-      region: 'OH',
-      postalCode: '43215',
+      street: '11000 Metro Parkway, Unit 24',
+      locality: 'Fort Myers',
+      region: 'FL',
+      postalCode: '33966',
       country: 'US',
     },
-    geo: { latitude: 39.9612, longitude: -82.9988 },
-    hours: ['Mo-Fr 08:00-17:00', 'Sa 09:00-13:00'],
-    priceRange: '$$',
+    geo: { latitude: 26.5813972, longitude: -81.8538347 },
+    hours: ['Mo-Fr 09:00-17:00'],
+    hoursLabel: 'Mon–Fri, 9am–5pm',
   },
 
-  social: {
-    facebook: 'https://facebook.com/example',
-    instagram: 'https://instagram.com/example',
-    linkedin: 'https://linkedin.com/company/example',
-  },
+  social: {},
 
-  defaultOgImage: '/og-default.png',
+  defaultOgImage: '/og-default.webp',
+  defaultOgImageAlt: 'Markle Tile installation work in Fort Myers, Florida',
 
   formEndpoint: '/api/submit.php',
   recaptchaSiteKey: '',
 
   analytics: {
-    logdash: '',
+    logdash: '442002d1-571c-4f44-be8e-c15271e739a8',
     ga4: '',
     gtm: '',
     metaPixel: '',

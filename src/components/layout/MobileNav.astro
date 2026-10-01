@@ -23,7 +23,7 @@ const isCurrent = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 
 const linkClass =
-  'flex min-h-12 items-center gap-3 rounded-md px-2 text-base no-underline text-ink-base aria-[current=page]:text-ink-brand aria-[current=page]:font-medium';
+  'flex min-h-12 items-center gap-3 rounded-md px-2 text-base no-underline text-brand-600 aria-[current=page]:text-ink-heading aria-[current=page]:font-semibold';
 ---
 
 <button
@@ -133,7 +133,11 @@ const linkClass =
     </ul>
 
     <div class="mt-6 flex flex-col gap-3">
-      {navigation.cta && <Button href={navigation.cta.href}>{navigation.cta.label}</Button>}
+      {
+        navigation.cta && !navigation.cta.href.startsWith('tel:') && (
+          <Button href={navigation.cta.href}>{navigation.cta.label}</Button>
+        )
+      }
       <Button href={`tel:${site.business.phoneHref}`} variant="secondary">
         <Icon name="lucide:phone" class="size-4" aria-hidden="true" />
         {site.business.phone}

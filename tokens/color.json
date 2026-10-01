@@ -1,53 +1,59 @@
 {
   "color": {
     "brand": {
-      "50": { "$value": "#eef4ff", "$type": "color" },
-      "100": { "$value": "#d9e6ff", "$type": "color" },
-      "200": { "$value": "#bcd3ff", "$type": "color" },
-      "300": { "$value": "#8eb6ff", "$type": "color" },
-      "400": { "$value": "#598eff", "$type": "color" },
-      "500": { "$value": "#3366f2", "$type": "color" },
-      "600": { "$value": "#2148d6", "$type": "color" },
-      "700": { "$value": "#1b39ad", "$type": "color" },
-      "800": { "$value": "#1b3389", "$type": "color" },
-      "900": { "$value": "#1c2f6c", "$type": "color" },
-      "950": { "$value": "#141d42", "$type": "color" }
+      "50": { "$value": "#fbf6f1", "$type": "color" },
+      "100": { "$value": "#f6eadc", "$type": "color" },
+      "200": { "$value": "#ecd2b6", "$type": "color" },
+      "300": { "$value": "#dfb184", "$type": "color" },
+      "400": { "$value": "#d08955", "$type": "color" },
+      "500": { "$value": "#c6733a", "$type": "color" },
+      "600": { "$value": "#c66931", "$type": "color" },
+      "700": { "$value": "#a45328", "$type": "color" },
+      "800": { "$value": "#854326", "$type": "color" },
+      "900": { "$value": "#6c3824", "$type": "color" },
+      "950": { "$value": "#3a1b10", "$type": "color" }
     },
     "accent": {
-      "400": { "$value": "#ffb020", "$type": "color" },
-      "500": { "$value": "#f59300", "$type": "color" },
-      "600": { "$value": "#cc7000", "$type": "color" }
+      "400": { "$value": "#86b09a", "$type": "color" },
+      "500": { "$value": "#74a388", "$type": "color" },
+      "600": { "$value": "#639376", "$type": "color" },
+      "700": { "$value": "#4f7860", "$type": "color" }
+    },
+    "info": {
+      "500": { "$value": "#0f85e6", "$type": "color" }
     },
     "neutral": {
       "0": { "$value": "#ffffff", "$type": "color" },
-      "50": { "$value": "#f7f8fa", "$type": "color" },
-      "100": { "$value": "#eef0f4", "$type": "color" },
-      "200": { "$value": "#dde1e8", "$type": "color" },
-      "300": { "$value": "#c2c8d3", "$type": "color" },
-      "400": { "$value": "#98a1b1", "$type": "color" },
-      "500": { "$value": "#6f7889", "$type": "color" },
-      "600": { "$value": "#555d6d", "$type": "color" },
-      "700": { "$value": "#414857", "$type": "color" },
-      "800": { "$value": "#2b303c", "$type": "color" },
-      "900": { "$value": "#1a1e27", "$type": "color" },
-      "950": { "$value": "#0f1218", "$type": "color" }
+      "50": { "$value": "#f7f7f7", "$type": "color" },
+      "100": { "$value": "#f2f2f2", "$type": "color" },
+      "200": { "$value": "#e4e4e4", "$type": "color" },
+      "300": { "$value": "#c8c8c8", "$type": "color" },
+      "400": { "$value": "#9a9a9a", "$type": "color" },
+      "500": { "$value": "#6f6f6f", "$type": "color" },
+      "600": { "$value": "#555555", "$type": "color" },
+      "700": { "$value": "#3d3d3d", "$type": "color" },
+      "800": { "$value": "#2a2a2a", "$type": "color" },
+      "900": { "$value": "#1a1a1a", "$type": "color" },
+      "950": { "$value": "#0b0905", "$type": "color" }
     },
     "surface": {
       "base": { "$value": "{color.neutral.0}", "$type": "color" },
-      "muted": { "$value": "{color.neutral.50}", "$type": "color" },
+      "muted": { "$value": "{color.neutral.100}", "$type": "color" },
       "inverse": { "$value": "{color.neutral.900}", "$type": "color" },
-      "brand": { "$value": "{color.brand.600}", "$type": "color" }
+      "brand": { "$value": "{color.brand.600}", "$type": "color" },
+      "accent": { "$value": "{color.accent.600}", "$type": "color" }
     },
     "ink": {
-      "base": { "$value": "{color.neutral.900}", "$type": "color" },
+      "base": { "$value": "#333333", "$type": "color" },
       "muted": { "$value": "{color.neutral.600}", "$type": "color" },
       "inverse": { "$value": "{color.neutral.0}", "$type": "color" },
-      "brand": { "$value": "{color.brand.700}", "$type": "color" }
+      "brand": { "$value": "{color.brand.600}", "$type": "color" },
+      "heading": { "$value": "#0b0905", "$type": "color" }
     },
     "line": {
       "base": { "$value": "{color.neutral.200}", "$type": "color" },
       "strong": { "$value": "{color.neutral.300}", "$type": "color" }
     },
-    "focus": { "$value": "{color.brand.500}", "$type": "color" }
+    "focus": { "$value": "{color.brand.600}", "$type": "color" }
   }
 }

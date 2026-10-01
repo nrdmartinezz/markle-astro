@@ -7,7 +7,8 @@
   [data-bg='base'] + [data-bg='base'],
   [data-bg='muted'] + [data-bg='muted'],
   [data-bg='inverse'] + [data-bg='inverse'],
-  [data-bg='brand'] + [data-bg='brand'] {
+  [data-bg='brand'] + [data-bg='brand'],
+  [data-bg='accent'] + [data-bg='accent'] {
     padding-block-start: 0;
   }
 
@@ -23,6 +24,22 @@
     font-size: var(--text-base);
     line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    color: var(--color-ink-heading);
+  }
+
+  [data-bg='inverse'] :is(h1, h2, h3, h4, h5, h6),
+  [data-bg='brand'] :is(h1, h2, h3, h4, h5, h6),
+  [data-bg='accent'] :is(h1, h2, h3, h4, h5, h6) {
+    color: inherit;
   }
 
   :focus-visible {

@@ -51,91 +51,24 @@ export interface NavigationConfig {
 export const navigation: NavigationConfig = {
   primary: [
     { label: 'Home', href: '/' },
-    {
-      label: 'Services',
-      href: '/services/',
-      panel: {
-        kind: 'mega',
-        columns: [
-          {
-            heading: 'Residential',
-            links: [
-              {
-                label: 'Repairs & Maintenance',
-                href: '/services/repairs/',
-                description: 'Fast turnaround on everyday problems.',
-                icon: 'lucide:wrench',
-              },
-              {
-                label: 'Installations',
-                href: '/services/installations/',
-                description: 'New systems, fitted and tested.',
-                icon: 'lucide:hammer',
-              },
-            ],
-          },
-          {
-            heading: 'Commercial',
-            links: [
-              {
-                label: 'Service Contracts',
-                href: '/services/contracts/',
-                description: 'Scheduled upkeep with priority response.',
-                icon: 'lucide:clipboard-check',
-              },
-              {
-                label: 'Emergency Callout',
-                href: '/services/emergency/',
-                description: 'Around-the-clock cover.',
-                icon: 'lucide:siren',
-              },
-            ],
-          },
-        ],
-        featured: {
-          title: 'Not sure what you need?',
-          body: 'Tell us what is going on and we will point you at the right service.',
-          href: '/contact/',
-          cta: 'Talk to us',
-        },
-      },
-    },
-    {
-      label: 'About',
-      panel: {
-        kind: 'links',
-        links: [
-          { label: 'Our Story', href: '/about/' },
-          { label: 'The Team', href: '/about/team/' },
-          { label: 'Service Area', href: '/about/service-area/' },
-        ],
-      },
-    },
-    { label: 'Contact', href: '/contact/' },
+    { label: 'Our Services', href: '/our-services/' },
+    { label: 'About Us', href: '/about-us/' },
+    { label: 'Contact Us', href: '/contact-us/' },
   ],
 
-  cta: { label: 'Request a Quote', href: '/contact/' },
+  cta: { label: 'Call Us: (239) 490-3631', href: 'tel:+12394903631' },
 
   footer: [
     {
-      heading: 'Services',
+      heading: 'Quick Links',
       links: [
-        { label: 'Repairs & Maintenance', href: '/services/repairs/' },
-        { label: 'Installations', href: '/services/installations/' },
-        { label: 'Service Contracts', href: '/services/contracts/' },
-      ],
-    },
-    {
-      heading: 'Company',
-      links: [
-        { label: 'About', href: '/about/' },
-        { label: 'Contact', href: '/contact/' },
+        { label: 'Home', href: '/' },
+        { label: 'Our Services', href: '/our-services/' },
+        { label: 'About Us', href: '/about-us/' },
+        { label: 'Contact Us', href: '/contact-us/' },
       ],
     },
   ],
 
-  legal: [
-    { label: 'Privacy Policy', href: '/privacy/' },
-    { label: 'Terms of Service', href: '/terms/' },
-  ],
+  legal: [],
 };

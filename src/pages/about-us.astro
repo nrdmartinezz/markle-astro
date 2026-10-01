@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OverlayHero from '../components/blocks/OverlayHero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import BlockHeader from '../components/blocks/BlockHeader.astro';
+import Button from '../components/ui/Button.astro';
+import { Image } from 'astro:assets';
+import MediaCards from '../components/blocks/MediaCards.astro';
+import FeatureSplit from '../components/blocks/FeatureSplit.astro';
+import FAQ from '../components/blocks/FAQ.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import { site } from '../config/site';
+import { descriptions, faqs } from '../data/faqs';
+import hero from '../assets/markle/hero-page.webp';
+import aerial from '../assets/markle/service-area.webp';
+import pier from '../assets/markle/local-business.webp';
+import street from '../assets/markle/contractor.webp';
+
+const phone = {
+  label: `Call Us: ${site.business.phone}`,
+  href: `tel:${site.business.phoneHref}`,
+  variant: 'outline-inverse' as const,
+};
+---
+
+<BaseLayout
+  title="About Us – Markle Tile"
+  titleExact
+  description={descriptions.about}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'About Us', href: '/about-us/' },
+  ]}
+  faqs={faqs}
+>
+  <OverlayHero
+    size="short"
+    align="start"
+    image={hero}
+    imageAlt="Installer combing thinset and setting a wood-look floor tile"
+    eyebrow="Our Story"
+    title="About Markle Tile & Renovation"
+  />
+
+  <Section>
+    <Container gap="md">
+      <BlockHeader
+        eyebrow="Expert Craftsmanship Since Day One"
+        title="A Family-Owned Business Built on Quality"
+        titleAccent="Built on Quality"
+        accentBreak
+        body="Welcome to Markle Tile & Renovation — where family values and quality craftsmanship come together. We're a family-owned business built on trust, hard work, and a genuine passion for helping Fort Myers homeowners turn their ideas into beautiful, lasting results. When you choose Markle Tile, you're not just hiring a contractor — you're partnering with a team that treats your home like it's our own."
+      />
+      <p class="text-ink-muted max-w-reading">
+        From custom tilework and bathroom upgrades to full-scale renovations, we approach every job
+        with care, precision, and the kind of personal service only a small, local business can
+        provide. Serving Fort Myers, Cape Coral, Bonita Springs, Estero, and all of Southwest
+        Florida, we've built our reputation one satisfied homeowner at a time — and we're proud of
+        every single project we've completed across Lee County.
+      </p>
+      <Button href="/our-services/" size="lg">View Our Services</Button>
+      <Image
+        src={aerial}
+        alt="Aerial view of Fort Myers along the Caloosahatchee River"
+        widths={[640, 960, 1400]}
+        sizes="(max-width: 768px) 100vw, 70vw"
+        class="mx-auto mt-4 w-full max-w-3xl rounded-xl object-cover"
+      />
+    </Container>
+  </Section>
+
+  <MediaCards
+    background="muted"
+    align="center"
+    columns={3}
+    eyebrow="Our Commitment"
+    title="What Sets Us Apart"
+    titleAccent="Sets Us Apart"
+    body="Three core principles that guide every project we take on across Fort Myers and Southwest Florida."
+    variant="solid"
+    items={[
+      {
+        tone: 'copper',
+        icon: 'lucide:shield-check',
+        title: 'Licensed & Insured',
+        body: 'Fully licensed general contractor in Florida with comprehensive general liability and workers’ compensation coverage on every project — protecting your home and our team.',
+        href: '#license',
+      },
+      {
+        tone: 'blue',
+        icon: 'lucide:house',
+        title: 'Family-Owned & Operated',
+        body: 'We treat every home like our own. Personal service, direct communication, and full accountability on every single project — no subcontractors, no surprises.',
+        href: '#family',
+      },
+      {
+        tone: 'sage',
+        icon: 'lucide:badge-check',
+        title: '100% Satisfaction Guarantee',
+        body: 'We do not consider a job complete until you are completely satisfied with the results. Your happiness is our top priority — and our greatest source of referrals across SWFL.',
+        href: '#guarantee',
+      },
+    ]}
+  />
+
+  <FeatureSplit
+    background="accent"
+    eyebrow="Our Credentials"
+    title="Why Fort Myers Homeowners Choose Us"
+    image={pier}
+    imageAlt="Sunset over a Fort Myers pier"
+    body="We've spent over 15 years earning the trust of homeowners across Lee County. Our commitment to quality, transparency, and customer satisfaction has made us the go-to tile and renovation contractor in Fort Myers and the surrounding Southwest Florida communities."
+    bullets={[
+      { id: 'license', text: 'Licensed and insured general contractor in the state of Florida' },
+      { text: 'Certified large panel tile installation specialists' },
+      { text: '15+ years of residential and commercial experience in SWFL' },
+      { text: '500+ completed projects across Lee County and beyond' },
+      { text: 'Free, no-obligation estimates on all projects' },
+      { id: 'guarantee', text: "100% satisfaction guarantee — we don't stop until you're happy" },
+      { text: 'Transparent pricing with no hidden fees or surprise charges' },
+      { id: 'family', text: 'Family-owned business with deep roots in the Fort Myers community' },
+    ]}
+    actions={[{ label: 'Request a Free Estimate', href: '/contact-us/', variant: 'inverse' }]}
+  />
+
+  <FeatureSplit
+    reverse
+    eyebrow="Our Service Area"
+    title="Serving Fort Myers & All of Southwest Florida"
+    titleAccent="Southwest Florida"
+    image={street}
+    imageAlt="Palm-lined street in downtown Fort Myers"
+    body={`Based out of our Fort Myers location at 11000 Metro Parkway, we proudly serve homeowners and businesses throughout Lee County and the greater Southwest Florida region. Whether you're in Cape Coral, Bonita Springs, Estero, Naples, or Lehigh Acres, our team is ready to bring the same level of craftsmanship and care to your home.\n\nSouthwest Florida's warm, humid climate demands tile and renovation work that's built to last. We understand the local conditions — from salt air near the coast to the intense summer heat — and we select materials and techniques that hold up beautifully in the SWFL environment year after year.`}
+  />
+
+  <FAQ
+    background="muted"
+    align="center"
+    eyebrow="Common Questions"
+    title="Service FAQs"
+    titleAccent="FAQs"
+    body="Have questions before you call? We've answered the most common ones below. For anything else, don't hesitate to reach out — we're always happy to talk through your project."
+    items={faqs}
+    schema={false}
+  />
+
+  <CTABanner
+    background="accent"
+    title="Ready To Start Your Next Project?"
+    body="Get a free quote or schedule a consultation with our team. We'll discuss your vision and deliver honest, expert guidance — no pressure, no obligation."
+    actions={[{ label: 'Request a Quote', href: '/contact-us/' }, phone]}
+  />
+</BaseLayout>

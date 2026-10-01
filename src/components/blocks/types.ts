@@ -16,10 +16,14 @@ export interface BlockProps {
   body?: string;
   /** Semantic level for `title`; visual size stays constant. */
   titleLevel?: 2 | 3;
+  /** Phrase within `title` drawn in the sage accent. */
+  titleAccent?: string;
+  /** Put `titleAccent` on its own line. */
+  accentBreak?: boolean;
 }
 
 export interface BlockAction {
   label: string;
   href: string;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'inverse';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'inverse' | 'outline-inverse';
 }

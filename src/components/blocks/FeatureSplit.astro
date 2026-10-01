@@ -3,15 +3,18 @@ import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import Section from '../ui/Section.astro';
 import Container from '../ui/Container.astro';
-import Heading from '../ui/Heading.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
 import Button from '../ui/Button.astro';
 import { Icon } from 'astro-icon/components';
 import type { BlockProps, BlockAction } from './types';
 
+type Bullet = string | { text: string; id?: string };
+
 interface Props extends BlockProps {
+  id?: string;
   image?: ImageMetadata;
   imageAlt?: string;
-  bullets?: string[];
+  bullets?: Bullet[];
   actions?: BlockAction[];
   /** Image right on desktop by default; small screens always stack image-first. */
   reverse?: boolean;
@@ -21,8 +24,11 @@ const {
   background = 'base',
   spacing = 'md',
   width = 'page',
+  id,
   eyebrow,
   title,
+  titleAccent,
+  accentBreak,
   body,
   titleLevel = 2,
   image,
@@ -31,9 +37,12 @@ const {
   actions = [],
   reverse = false,
 } = Astro.props;
+
+const onColor = background === 'accent' || background === 'brand' || background === 'inverse';
+const paragraphs = body?.split(/\n\n+/).filter(Boolean) ?? [];
 ---
 
-<Section background={background} spacing={spacing}>
+<Section id={id} background={background} spacing={spacing}>
   <Container width={width} layout="row" gap="lg">
     <div class:list={['w-full md:w-1/2', reverse ? 'md:order-2' : 'md:order-1']}>
       {
@@ -60,25 +69,52 @@ const {
     >
       {
         eyebrow && (
-          <p class="text-ink-brand text-sm font-semibold tracking-wide uppercase">{eyebrow}</p>
+          <p
+            class:list={[
+              'text-sm font-semibold tracking-wide uppercase',
+              onColor ? 'opacity-80' : 'text-accent-600',
+            ]}
+          >
+            {eyebrow}
+          </p>
         )
       }
-      {title && <Heading level={titleLevel}>{title}</Heading>}
-      {body && <p class="text-ink-muted max-w-reading">{body}</p>}
+      {
+        title && (
+          <AccentHeading
+            level={titleLevel}
+            title={title}
+            titleAccent={onColor ? undefined : titleAccent}
+            accentBreak={accentBreak}
+            class={onColor ? 'text-inherit' : undefined}
+          />
+        )
+      }
+      {
+        paragraphs.map((paragraph) => (
+          <p class:list={['max-w-reading', onColor ? 'opacity-90' : 'text-ink-muted']}>
+            {paragraph}
+          </p>
+        ))
+      }
 
       {
         bullets.length > 0 && (
           <ul class="flex flex-col gap-2">
-            {bullets.map((bullet) => (
-              <li class="flex items-start gap-3">
-                <Icon
-                  name="lucide:check"
-                  class="text-brand-600 mt-1 size-5 shrink-0"
-                  aria-hidden="true"
-                />
-                <span>{bullet}</span>
-              </li>
-            ))}
+            {bullets.map((bullet) => {
+              const text = typeof bullet === 'string' ? bullet : bullet.text;
+              const bulletId = typeof bullet === 'string' ? undefined : bullet.id;
+              return (
+                <li id={bulletId} class="flex items-start gap-3">
+                  <Icon
+                    name="lucide:check"
+                    class:list={['mt-1 size-5 shrink-0', onColor ? 'opacity-80' : 'text-brand-600']}
+                    aria-hidden="true"
+                  />
+                  <span>{text}</span>
+                </li>
+              );
+            })}
           </ul>
         )
       }

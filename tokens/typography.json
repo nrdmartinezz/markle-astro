@@ -1,11 +1,11 @@
 {
   "font": {
     "sans": {
-      "$value": "'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
+      "$value": "'Work Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
       "$type": "fontFamily"
     },
     "heading": {
-      "$value": "'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
+      "$value": "'Sora Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
       "$type": "fontFamily"
     }
   },

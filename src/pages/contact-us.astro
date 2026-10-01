@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import OverlayHero from '../components/blocks/OverlayHero.astro';
+import ContactBlock from '../components/blocks/ContactBlock.astro';
+import FAQ from '../components/blocks/FAQ.astro';
+import CTABanner from '../components/blocks/CTABanner.astro';
+import { site } from '../config/site';
+import { descriptions, faqs } from '../data/faqs';
+import hero from '../assets/markle/hero-page.webp';
+
+const phone = {
+  label: `Call Us: ${site.business.phone}`,
+  href: `tel:${site.business.phoneHref}`,
+  variant: 'outline-inverse' as const,
+};
+---
+
+<BaseLayout
+  title="Contact Us – Markle Tile"
+  titleExact
+  description={descriptions.contact}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Contact Us', href: '/contact-us/' },
+  ]}
+  faqs={faqs}
+>
+  <OverlayHero
+    size="short"
+    align="start"
+    image={hero}
+    imageAlt="Installer combing thinset and setting a wood-look floor tile"
+    eyebrow="Contact Us"
+    title="Get in Touch With Our Team"
+  />
+
+  <ContactBlock
+    eyebrow="Reach Out Today"
+    title="We'd Love to Hear From You"
+    body="Whether you're ready to start a project or just exploring your options, we're here to help. We offer free, no-obligation on-site estimates across Fort Myers, Cape Coral, and all of Southwest Florida — and we respond quickly. No pressure, no sales tactics, just honest answers from a team that cares."
+    services={site.offers?.map((offer) => offer.name) ?? []}
+    hearAbout={[
+      'Google search',
+      'Friend or neighbor',
+      'Facebook',
+      'Instagram',
+      'Previous customer',
+      'Saw our work in person',
+      'Other',
+    ]}
+  />
+
+  <FAQ
+    background="muted"
+    align="center"
+    eyebrow="Common Questions"
+    title="Service FAQs"
+    titleAccent="FAQs"
+    body="Have questions before you call? We've answered the most common ones below. For anything else, don't hesitate to reach out — we're always happy to talk through your project."
+    items={faqs}
+    schema={false}
+  />
+
+  <CTABanner
+    background="accent"
+    title="Ready To Start Your Next Project?"
+    body="Get a free quote or schedule a consultation with our team. We'll discuss your vision and deliver honest, expert guidance — no pressure, no obligation."
+    actions={[{ label: 'Request a Quote', href: '/contact-us/' }, phone]}
+  />
+</BaseLayout>

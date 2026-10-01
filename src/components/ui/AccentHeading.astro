@@ -1,0 +1,31 @@
+---
+import Heading from './Heading.astro';
+import type { HeadingLevel, HeadingSize } from './Heading.astro';
+
+interface Props {
+  level?: HeadingLevel;
+  size?: HeadingSize;
+  title: string;
+  titleAccent?: string;
+  accentBreak?: boolean;
+  class?: string;
+}
+
+const { level = 2, size, title, titleAccent, accentBreak = false, class: className } = Astro.props;
+
+const accent = titleAccent?.trim();
+let before = title;
+let after = '';
+
+if (accent && title.includes(accent)) {
+  const index = title.indexOf(accent);
+  before = title.slice(0, index);
+  after = title.slice(index + accent.length);
+}
+---
+
+<Heading level={level} size={size} class={className}>
+  {before}
+  {accent && <span class:list={['text-accent-600', accentBreak && 'block']}>{accent}</span>}
+  {after}
+</Heading>

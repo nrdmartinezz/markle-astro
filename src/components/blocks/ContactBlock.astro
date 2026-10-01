@@ -14,6 +14,7 @@ import type { BlockProps } from './types';
 
 interface Props extends BlockProps {
   services?: string[];
+  hearAbout?: string[];
   showDetails?: boolean;
 }
 
@@ -23,9 +24,12 @@ const {
   width = 'page',
   eyebrow,
   title = 'Get in touch',
+  titleAccent,
+  accentBreak,
   body,
   titleLevel = 2,
   services = [],
+  hearAbout = [],
   showDetails = true,
 } = Astro.props;
 
@@ -36,7 +40,14 @@ const thankYou = new URL('/thank-you/', site.url).href;
 <Section background={background} spacing={spacing}>
   <Container width={width} layout="row" gap="lg" class="md:items-start">
     <div class="flex flex-col gap-6 md:w-3/5">
-      <BlockHeader eyebrow={eyebrow} title={title} body={body} level={titleLevel} />
+      <BlockHeader
+        eyebrow={eyebrow}
+        title={title}
+        titleAccent={titleAccent}
+        accentBreak={accentBreak}
+        body={body}
+        level={titleLevel}
+      />
 
       {
         !action && (
@@ -66,15 +77,16 @@ const thankYou = new URL('/thank-you/', site.url).href;
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2">
-          <Field name="name" label="Your name" autocomplete="name" required />
+          <Field name="name" label="Name" autocomplete="name" required />
           <Field name="email" label="Email" type="email" autocomplete="email" required />
           <Field name="phone" label="Phone" type="tel" autocomplete="tel" />
           {
             services.length > 0 && (
               <Field
                 name="service"
-                label="What do you need?"
+                label="Service you're interested in"
                 type="select"
+                required
                 options={[
                   { label: 'Select a service', value: '' },
                   ...services.map((service) => ({ label: service, value: service })),
@@ -84,13 +96,22 @@ const thankYou = new URL('/thank-you/', site.url).href;
           }
         </div>
 
-        <Field
-          name="message"
-          label="How can we help?"
-          type="textarea"
-          help="A short description is plenty — we will follow up with questions."
-          required
-        />
+        {
+          hearAbout.length > 0 && (
+            <Field
+              name="hear_about_us"
+              label="How did you hear about us?"
+              type="select"
+              required
+              options={[
+                { label: 'Select an option', value: '' },
+                ...hearAbout.map((source) => ({ label: source, value: source })),
+              ]}
+            />
+          )
+        }
+
+        <Field name="message" label="Message" type="textarea" required />
 
         <FormMessage />
 
@@ -112,13 +133,15 @@ const thankYou = new URL('/thank-you/', site.url).href;
             {site.business.phone}
           </a>
 
-          <a
-            href={`mailto:${site.business.email}`}
-            class="text-ink-base inline-flex min-h-11 items-center gap-2 break-all no-underline"
-          >
-            <Icon name="lucide:mail" class="text-brand-600 size-5" aria-hidden="true" />
-            {site.business.email}
-          </a>
+          {site.business.email && (
+            <a
+              href={`mailto:${site.business.email}`}
+              class="text-ink-base inline-flex min-h-11 items-center gap-2 break-all no-underline"
+            >
+              <Icon name="lucide:mail" class="text-brand-600 size-5" aria-hidden="true" />
+              {site.business.email}
+            </a>
+          )}
 
           <p class="flex items-start gap-2">
             <Icon
@@ -131,9 +154,7 @@ const thankYou = new URL('/thank-you/', site.url).href;
 
           <dl class="text-ink-muted flex flex-col gap-1 text-sm">
             <dt class="font-medium">Hours</dt>
-            {site.business.hours.map((line) => (
-              <dd>{line}</dd>
-            ))}
+            <dd>{site.business.hoursLabel ?? site.business.hours.join(', ')}</dd>
           </dl>
         </aside>
       )

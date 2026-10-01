@@ -12,7 +12,6 @@ import MegaMenu from './MegaMenu.astro';
 import MobileNav from './MobileNav.astro';
 import { navigation } from '../../config/navigation';
 import { site } from '../../config/site';
-import { Icon } from 'astro-icon/components';
 
 export type HeaderSticky = 'static' | 'sticky' | 'shrink' | 'hide-on-scroll';
 
@@ -29,45 +28,58 @@ const positioned = sticky !== 'static';
 <header
   data-sticky={sticky}
   class:list={[
-    'group/header border-line-base bg-surface-base z-50 w-full border-b',
+    'group/header bg-surface-base z-50 w-full',
     // The mega panel is absolutely positioned against the header, so the header
     // must be a positioned ancestor even when it isn't sticky.
     positioned ? 'sticky top-0' : 'relative',
   ]}
 >
-  <Container
-    as="div"
-    layout="bar"
-    gap="none"
-    class="justify-between gap-4 py-4 group-data-[scrolled=true]/header:py-2"
-  >
-    <a href="/" class="text-ink-base flex items-center gap-2 font-semibold no-underline">
-      <Icon name="lucide:hexagon" class="text-brand-600 size-7" aria-hidden="true" />
-      <span>{site.name}</span>
-    </a>
+  {
+    site.announcement && (
+      <p class="bg-accent-600 text-ink-inverse px-4 py-2 text-center text-sm">
+        {site.announcement}
+      </p>
+    )
+  }
 
-    <MegaMenu currentPath={currentPath} />
-
-    <div class="flex items-center gap-2">
-      <a
-        href={`tel:${site.business.phoneHref}`}
-        class="text-ink-base hidden min-h-11 items-center gap-2 px-2 font-medium no-underline lg:inline-flex"
-      >
-        <Icon name="lucide:phone" class="size-4" aria-hidden="true" />
-        {site.business.phone}
+  <div class="border-brand-600 border-b-2">
+    <Container
+      as="div"
+      layout="bar"
+      gap="none"
+      class="justify-between gap-4 py-3 group-data-[scrolled=true]/header:py-2"
+    >
+      <a href="/" class="shrink-0">
+        <img
+          src="/logo.webp"
+          alt="Markle Tile & Renovation"
+          width="220"
+          height="63"
+          class="h-14 w-auto max-md:h-12"
+        />
       </a>
 
-      {
-        navigation.cta && (
-          <Button href={navigation.cta.href} size="sm" class="max-md:hidden">
-            {navigation.cta.label}
-          </Button>
-        )
-      }
+      <div class="flex flex-1 justify-center">
+        <MegaMenu currentPath={currentPath} />
+      </div>
 
-      <MobileNav currentPath={currentPath} />
-    </div>
-  </Container>
+      <div class="flex items-center gap-2">
+        {
+          navigation.cta && (
+            <Button
+              href={navigation.cta.href}
+              size="lg"
+              class="max-w-52 px-6 text-center leading-tight whitespace-normal max-md:hidden"
+            >
+              {navigation.cta.label}
+            </Button>
+          )
+        }
+
+        <MobileNav currentPath={currentPath} />
+      </div>
+    </Container>
+  </div>
 </header>
 
 <style>

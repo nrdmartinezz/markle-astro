@@ -1,0 +1,72 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Container from '../ui/Container.astro';
+import AccentHeading from '../ui/AccentHeading.astro';
+import Button from '../ui/Button.astro';
+import type { BlockAction } from './types';
+
+interface Props {
+  title: string;
+  titleAccent?: string;
+  eyebrow?: string;
+  body?: string;
+  image: ImageMetadata;
+  imageAlt?: string;
+  actions?: BlockAction[];
+  /** Tall centered hero on the home page; shorter left-aligned hero on inner pages. */
+  size?: 'tall' | 'short';
+  align?: 'center' | 'start';
+}
+
+const {
+  title,
+  titleAccent,
+  eyebrow,
+  body,
+  image,
+  imageAlt = '',
+  actions = [],
+  size = 'tall',
+  align = 'center',
+} = Astro.props;
+---
+
+<section class="relative isolate overflow-hidden text-white">
+  <Image
+    src={image}
+    alt={imageAlt}
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 -z-10 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 -z-10 bg-[rgb(11_9_5/0.3)]" aria-hidden="true"></div>
+
+  <Container
+    align={align}
+    gap="md"
+    class:list={[
+      'relative',
+      size === 'tall'
+        ? 'min-h-[32rem] py-20 max-md:min-h-[26rem] max-md:py-14'
+        : 'py-16 max-md:py-12',
+    ]}
+  >
+    {eyebrow && <p class="text-sm font-semibold tracking-wide text-white uppercase">{eyebrow}</p>}
+    <AccentHeading level={1} title={title} titleAccent={titleAccent} class="text-inherit" />
+    {body && <p class="max-w-reading text-lg text-white/90">{body}</p>}
+    {
+      actions.length > 0 && (
+        <div class:list={['flex flex-wrap gap-3', align === 'center' && 'justify-center']}>
+          {actions.map((action) => (
+            <Button href={action.href} variant={action.variant ?? 'primary'} size="lg">
+              {action.label}
+            </Button>
+          ))}
+        </div>
+      )
+    }
+  </Container>
+</section>

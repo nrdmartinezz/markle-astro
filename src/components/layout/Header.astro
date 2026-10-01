@@ -64,11 +64,7 @@ const positioned = sticky !== 'static';
       <div class="flex items-center gap-2">
         {
           navigation.cta && (
-            <Button
-              href={navigation.cta.href}
-              size="md"
-              class="whitespace-nowrap max-md:hidden"
-            >
+            <Button href={navigation.cta.href} size="md" class="whitespace-nowrap max-md:hidden">
               {navigation.cta.label}
             </Button>
           )

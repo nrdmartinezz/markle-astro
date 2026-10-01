@@ -45,10 +45,10 @@ repository level.
 
 Environment variables (`vars`):
 
-| Variable         | `staging`                         | `production`                |
-| ---------------- | --------------------------------- | --------------------------- |
-| `SITE_URL`       | Staging origin, no trailing slash | `https://markletile.com`    |
-| `ALLOW_INDEXING` | `false`                           | `true`                      |
+| Variable         | `staging`                         | `production`             |
+| ---------------- | --------------------------------- | ------------------------ |
+| `SITE_URL`       | Staging origin, no trailing slash | `https://markletile.com` |
+| `ALLOW_INDEXING` | `false`                           | `true`                   |
 
 Environment secrets (variables work if the secret is unset):
 

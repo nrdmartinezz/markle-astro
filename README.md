@@ -17,7 +17,7 @@ until a project needs one.
 | `src/config/navigation.ts`                      | Nav tree, header CTA, footer and legal links             | required   |
 | `tokens/*.json`                                 | Replace the demo brand — theme regenerates on next build | required   |
 | `public/favicon.svg` + `src/assets/logo.svg`    | Client marks                                             | required   |
-| `astro.config.mjs` → production origin          | Fallback when `SITE_URL` is unset                       | required   |
+| `astro.config.mjs` → production origin          | Fallback when `SITE_URL` is unset                        | required   |
 | `site.ts` → `formEndpoint` / `recaptchaSiteKey` | PHP form handler + reCAPTCHA v3 site key                 | optional   |
 | `site.ts` → `analytics` / `verification`        | Per-platform IDs — blank means that vendor ships nothing | optional   |
 | GitHub Environment `staging` / `production`     | `SITE_URL`, `ALLOW_INDEXING`, FTP host/user/password     | to publish |

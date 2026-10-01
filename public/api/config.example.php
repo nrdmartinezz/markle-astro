@@ -1,8 +1,7 @@
 <?php
 /**
- * Copy to config.local.php for local testing, or to ~/private/site-mail.php
- * on the server (outside public_html). Rename the private file per client project
- * (e.g. peninsula-pavers-mail.php) and update the path in lib/mailer.php.
+ * Copy to config.local.php for local testing, or to ~/private/markle-tile-mail.php
+ * on the server (outside public_html). lib/mailer.php already looks for that path.
  * Never commit real credentials.
  *
  * Mail transport: uses PHP mail() by default (like WordPress). Set smtp_host, smtp_user,
@@ -10,14 +9,12 @@
  */
 return [
     'recaptcha_secret' => 'YOUR_RECAPTCHA_SECRET_KEY',
-    'notify_to' => 'leads@example.com',
-    // Or as an array:
-    // 'notify_to' => ['owner@example.com', 'sales@example.com'],
-    'from_email' => 'noreply@example.com',
-    'from_name' => 'Example Business',
-    'site_url' => 'https://example.com',
-    'site_phone' => '(555) 010-4477',
-    'site_phone_href' => '+15550104477',
+    'notify_to' => 'info@markletile.com',
+    'from_email' => 'noreply@markletile.com',
+    'from_name' => 'Markle Tile',
+    'site_url' => 'https://markletile.com',
+    'site_phone' => '(239) 490-3631',
+    'site_phone_href' => '+12394903631',
     'timezone' => 'America/New_York',
 
     // Optional SMTP — leave blank to use PHP mail() on the host.
@@ -28,7 +25,7 @@ return [
 
     'forms' => [
         'contact' => [
-            'subject' => 'New enquiry — Example Business',
+            'subject' => 'New quote request — Markle Tile',
             'notification' => 'notification-contact.html',
             // Autoreply disabled by default — set send_autoreply => true to enable.
         ],

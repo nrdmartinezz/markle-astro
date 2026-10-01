@@ -38,11 +38,11 @@ On deploy, Astro copies `public/api/` into `dist/api/`. CI runs `composer instal
 Create a secrets file **outside `public_html`** so FTP deploys never overwrite it:
 
 ```
-~/private/site-mail.php
+~/private/markle-tile-mail.php
 ```
 
-Rename per client project (e.g. `peninsula-pavers-mail.php`) and update the first path in
-`public/api/lib/mailer.php`.
+`public/api/lib/mailer.php` loads that file first, then `public/api/config.local.php`
+for local testing.
 
 Copy from [`public/api/config.example.php`](../public/api/config.example.php). The handler
 also reads `public/api/config.local.php` if present (local dev only — do not rely on this

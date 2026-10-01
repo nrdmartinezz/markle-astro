@@ -10,7 +10,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 function loadMailConfig(): array
 {
     $paths = [
-        dirname(__DIR__, 3) . '/private/site-mail.php',
+        dirname(__DIR__, 3) . '/private/markle-tile-mail.php',
         __DIR__ . '/../config.local.php',
     ];
 

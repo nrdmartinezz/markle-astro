@@ -1,6 +1,6 @@
 ---
 /**
- * Mobile navigation (below md). Standard across projects — it inherits the
+ * Mobile and tablet navigation (below lg). Standard across projects — it inherits the
  * client's tokens and is not designed per site.
  *
  * The drawer marks the rest of the page `inert`, locks body scroll, and
@@ -31,7 +31,7 @@ const linkClass =
   id="nav-toggle"
   aria-expanded="false"
   aria-controls="mobile-nav"
-  class="inline-flex size-11 items-center justify-center rounded-md hover:bg-neutral-100 md:hidden"
+  class="inline-flex size-11 items-center justify-center rounded-md hover:bg-neutral-100 lg:hidden"
 >
   <span class="sr-only">Menu</span>
   <Icon name="lucide:menu" class="size-6" aria-hidden="true" />
@@ -40,7 +40,7 @@ const linkClass =
 <div
   id="mobile-nav"
   hidden
-  class="bg-surface-base fixed inset-0 top-(--header-h) z-40 overflow-y-auto overscroll-contain md:hidden"
+  class="bg-surface-base fixed inset-0 top-(--header-h) z-40 overflow-y-auto overscroll-contain lg:hidden"
 >
   <Container
     as="nav"

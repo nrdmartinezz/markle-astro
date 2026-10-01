@@ -3,7 +3,7 @@
  * Owns its outer element rather than wrapping in Section: sticky behaviour
  * needs its own positioning and stacking context. Container is used inside.
  *
- * The nav slots are filled by MegaMenu (md and up) and MobileNav (below md),
+ * The nav slots are filled by MegaMenu (lg and up) and MobileNav (below lg),
  * both reading src/config/navigation.ts — one tree, two renderings.
  */
 import Container from '../ui/Container.astro';
@@ -25,6 +25,12 @@ const currentPath = Astro.url.pathname;
 const positioned = sticky !== 'static';
 ---
 
+{
+  site.announcement && (
+    <p class="bg-accent-600 text-ink-inverse px-4 py-2 text-center text-sm">{site.announcement}</p>
+  )
+}
+
 <header
   data-sticky={sticky}
   class:list={[
@@ -34,14 +40,6 @@ const positioned = sticky !== 'static';
     positioned ? 'sticky top-0' : 'relative',
   ]}
 >
-  {
-    site.announcement && (
-      <p class="bg-accent-600 text-ink-inverse px-4 py-2 text-center text-sm">
-        {site.announcement}
-      </p>
-    )
-  }
-
   <div class="border-brand-600 border-b-2">
     <Container
       as="div"
@@ -59,7 +57,7 @@ const positioned = sticky !== 'static';
         />
       </a>
 
-      <div class="flex flex-1 justify-center">
+      <div class="flex min-w-0 flex-1 justify-center">
         <MegaMenu currentPath={currentPath} />
       </div>
 
@@ -68,8 +66,8 @@ const positioned = sticky !== 'static';
           navigation.cta && (
             <Button
               href={navigation.cta.href}
-              size="lg"
-              class="max-w-52 px-6 text-center leading-tight whitespace-normal max-md:hidden"
+              size="md"
+              class="whitespace-nowrap max-md:hidden"
             >
               {navigation.cta.label}
             </Button>

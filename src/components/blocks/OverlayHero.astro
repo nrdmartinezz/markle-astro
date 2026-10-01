@@ -32,7 +32,12 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative isolate overflow-hidden text-white">
+<section
+  class:list={[
+    'relative isolate overflow-hidden text-white',
+    size === 'tall' && 'h-[750px] max-md:h-auto',
+  ]}
+>
   <Image
     src={image}
     alt={imageAlt}
@@ -50,7 +55,7 @@ const {
     class:list={[
       'relative',
       size === 'tall'
-        ? 'min-h-[32rem] py-20 max-md:min-h-[26rem] max-md:py-14'
+        ? 'h-full justify-center py-20 max-md:h-auto max-md:min-h-[26rem] max-md:py-14'
         : 'py-16 max-md:py-12',
     ]}
   >

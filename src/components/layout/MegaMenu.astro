@@ -1,6 +1,7 @@
 ---
 /**
- * Desktop and tablet navigation (md and up).
+ * Desktop navigation (lg and up). Tablet uses the drawer — the phone pill
+ * leaves too little room for four links on one line.
  *
  * Uses the disclosure pattern — a button with aria-expanded/aria-controls per
  * panel — not role="menubar". Menubar is the ARIA application pattern and puts
@@ -23,11 +24,11 @@ const isCurrent = (href: string) =>
   href === '/' ? currentPath === '/' : currentPath.startsWith(href);
 
 const triggerClass =
-  'inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-base no-underline text-brand-600 hover:text-brand-700 aria-[current=page]:text-ink-heading aria-[current=page]:font-semibold';
+  'inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-base whitespace-nowrap no-underline text-brand-600 hover:text-brand-700 aria-[current=page]:text-ink-heading aria-[current=page]:font-semibold max-xl:px-2 max-xl:text-sm';
 ---
 
-<nav aria-label="Primary" class="mega hidden md:block">
-  <ul class="flex flex-wrap items-center justify-center gap-1">
+<nav aria-label="Primary" class="mega hidden lg:block">
+  <ul class="flex flex-nowrap items-center justify-center gap-1">
     {
       navigation.primary.map((item, index) => {
         const panelId = `mega-panel-${index}`;

@@ -23,30 +23,69 @@ the same page.
 
 ## First-time server setup
 
-1. Create the domain or subdomain in cPanel; note the document root
-   (usually `public_html/` or `public_html/subdomain/`).
+Two cPanel hosts, two GitHub Environments — never one shared FTP account.
+
+**Staging** deploys on every push to `main`.
+**Production** is `https://markletile.com`. It deploys only when you run the
+workflow by hand.
+
+For each host:
+
+1. Create the domain or subdomain in cPanel; note the document root.
 2. Issue the SSL certificate (AutoSSL) **before** the first deploy — `.htaccess`
    force-redirects to HTTPS and will loop against a missing certificate.
-3. Create an FTP account scoped to the document root.
-4. Add repository secrets in GitHub → Settings → Secrets → Actions:
+3. Create an FTP account **scoped to that document root**. Staging and production
+   must not share an account.
 
-   | Secret           | Value                                    |
-   | ---------------- | ---------------------------------------- |
-   | `FTP_SERVER`     | `ftp.example.com`                        |
-   | `FTP_USERNAME`   | The scoped FTP account                   |
-   | `FTP_PASSWORD`   | Its password                             |
-   | `FTP_SERVER_DIR` | `public_html/` (trailing slash required) |
+### GitHub Environments
 
-5. Update `site` in `astro.config.mjs` and the `Sitemap:` line in
-   `public/robots.txt` to the real domain.
+Create Environments named `staging` and `production` under
+Settings → Environments. Put secrets and variables **on the environment**, not at
+repository level.
+
+Environment variables (`vars`):
+
+| Variable         | `staging`                         | `production`                |
+| ---------------- | --------------------------------- | --------------------------- |
+| `SITE_URL`       | Staging origin, no trailing slash | `https://markletile.com`    |
+| `ALLOW_INDEXING` | `false`                           | `true`                      |
+
+Environment secrets (variables work if the secret is unset):
+
+| Secret     | Value                                |
+| ---------- | ------------------------------------ |
+| `FTP_HOST` | cPanel FTP hostname                  |
+| `FTP_USER` | The scoped FTP account for that host |
+| `FTP_PW`   | Its password                         |
+
+The FTP account home must already be the document root — the workflow
+uploads to `./`. Prefer **Environment secrets** for these three (especially
+`FTP_PW`); variables work but are visible to anyone with write access.
+
+`SITE_URL` is the build-time origin: canonicals, Open Graph, schema, and the
+sitemap all follow it. `ALLOW_INDEXING=false` forces `noindex`, emits a
+`Disallow: /` robots.txt, and skips analytics tags. Local builds with no
+`SITE_URL` fall back to the production origin and stay indexable.
 
 ## Deploying
 
-`.github/workflows/deploy.yml` runs on every push to `main`: install → `verify`
-→ `build` → FTP upload of `dist/`. The `verify` gate means a type error or
+`.github/workflows/deploy.yml`:
+
+- **Push to `main`** → environment `staging`.
+- **Actions → Deploy → Run workflow** → choose `staging` or `production`. The
+  dropdown defaults to `staging`.
+
+Each run: install → `verify` → PHPMailer → `build` (with that environment's
+`SITE_URL` / `ALLOW_INDEXING`) → FTPS upload of `dist/`. A type error or
 malformed frontmatter fails in CI instead of shipping.
 
-Manual fallback: `npm run build` and upload the contents of `dist/`.
+Manual fallback:
+
+```bash
+SITE_URL=https://staging.example.com ALLOW_INDEXING=false npm run build
+```
+
+Then upload the contents of `dist/`.
 
 ## What `.htaccess` does
 

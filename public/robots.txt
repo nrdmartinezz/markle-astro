@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /thank-you/
-Disallow: /styleguide/
-
-Sitemap: https://markletile.com/sitemap-index.xml

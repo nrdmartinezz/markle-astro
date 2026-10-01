@@ -12,7 +12,7 @@ import Header, { type HeaderSticky } from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import RecaptchaV3 from '../components/forms/RecaptchaV3.astro';
 import SiteFormHandler from '../components/forms/SiteFormHandler.astro';
-import { site, hasAnalytics } from '../config/site';
+import { allowIndexing, hasAnalytics, site } from '../config/site';
 
 interface Props {
   title?: string;
@@ -51,8 +51,8 @@ const { breadcrumbs, faqs, service, sticky = 'sticky', ...seo } = Astro.props;
 
     <SEO {...seo} />
     <Schema breadcrumbs={breadcrumbs} faqs={faqs} service={service} />
-    <LogDash />
-    {hasAnalytics && <Analytics />}
+    {allowIndexing && <LogDash />}
+    {hasAnalytics && allowIndexing && <Analytics />}
 
     <slot name="head" />
   </head>

@@ -30,7 +30,10 @@ export type SchemaBusinessType =
   | 'RealEstateAgent';
 
 export interface SiteConfig {
-  /** Absolute origin, no trailing slash. Must match `site` in astro.config.mjs. */
+  /**
+   * Absolute origin, no trailing slash. Taken from astro.config `site`
+   * (`SITE_URL` at build time, production origin as the local fallback).
+   */
   url: string;
   name: string;
   legalName?: string;
@@ -110,8 +113,10 @@ export interface SiteConfig {
   consent: 'none' | 'banner';
 }
 
+const PRODUCTION_ORIGIN = 'https://markletile.com';
+
 export const site: SiteConfig = {
-  url: 'https://markletile.com',
+  url: (import.meta.env.SITE ?? PRODUCTION_ORIGIN).replace(/\/$/, ''),
   name: 'Markle Tile',
   legalName: 'Markle Tile & Renovation',
   tagline: 'Tile and renovation done right',
@@ -222,3 +227,6 @@ export const logdashWebsiteId = site.analytics.logdash;
 export const hasAnalytics = Object.entries(site.analytics).some(
   ([key, value]) => key !== 'logdash' && Boolean(value),
 );
+
+/** Staging builds must not be indexed or emit analytics tags. */
+export const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
